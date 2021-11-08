@@ -1,0 +1,7 @@
+<h5>Add New Book</h5>
+<%- include('../partials/error.ejs')%>
+<form action='/book' method="POST" enctype="multipart/form-data">
+    <%-  include('./book_form.ejs') %>
+    <a href="/book">Cancel</a>
+    <button type="submit">Create</button>
+</form>

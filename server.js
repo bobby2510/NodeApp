@@ -1,7 +1,11 @@
 //const dotenv = require('dotenv').config()
 const express = require('express')
 const app = express()
+
+
+
 const router = require('./routes/index')
+const bookRouter = require('./routes/books')
 const bodyParser = require('body-parser')
 const authorRouter = require('./routes/authors')
 const expressLayouts = require('express-ejs-layouts')
@@ -18,6 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/',router)
 app.use('/author',authorRouter)
+app.use('/book',bookRouter)
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log('server is up and running!')

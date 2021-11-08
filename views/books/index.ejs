@@ -1,0 +1,12 @@
+<h3>Search Book</h3>
+<form action="/book" method="GET">
+    <input type="text" name="title" value="<%= searchItems.title %>">
+    <input type="date" name="leftRangeDate" value="<%= searchItems.leftRangeDate %>">
+    <input type="date" name="rightRangeDate" value="<%= searchItems.rightRangeDate %>">
+    <button type="submit">Search</button>
+</form>
+<br>
+<h4>Result books</h4>
+<% locals.books.forEach( (book)=>{ %>
+    <img src="<%= book.coverImagePath %>" width="150" height="200">
+<% }) %>
