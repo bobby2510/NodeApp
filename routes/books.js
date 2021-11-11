@@ -1,15 +1,13 @@
 const express = require('express')
 const Book = require('../models/books')
 const Author = require('../models/authors')
+let s3 = require('../s3')
 const router = express.Router()
 
 //multer part 
 const fs = require('fs')
 const path = require('path')
-const baseUploadUrl = require('../models/books').baseUploadUrl
-console.log(baseUploadUrl)
-const uploadPath = path.join('public',baseUploadUrl)
-
+const uploadPath = path.join('public','uploads')
 const multer  = require('multer')
 const upload = multer({ dest: uploadPath })
 
@@ -64,18 +62,25 @@ let getStringDate = (date)=>{
 }
 
 
-router.post('/',upload.single('cover'),async (req,res)=>{
-    const fileName = req.file!=null? req.file.filename : null
-    const bookObj = {
-        title:req.body.title,
-        author:req.body.author,
-        pageCount:req.body.pageCount,
-        publishedDate:new Date(req.body.publishedDate),
-        description:req.body.description,
-        coverImageName: fileName
-    }
+router.post('/',upload.single('cover'),async (req,res)=>{       
     try
     {
+        const fileName = req.file!=null? req.file.filename : null
+        if(fileName!=null)
+        {
+            const result_s3 = await s3.upload(req.file)
+            fs.unlink(path.join(uploadPath,fileName),err=> {
+                if(err)
+                console.log(err)})
+        }   
+        const bookObj = {
+            title:req.body.title,
+            author:req.body.author,
+            pageCount:req.body.pageCount,
+            publishedDate:new Date(req.body.publishedDate),
+            description:req.body.description,
+            coverImageName: fileName
+        }
         let obj = await Book.create(bookObj)
         console.log('book added successfully!')
         res.redirect('/book')
@@ -83,10 +88,6 @@ router.post('/',upload.single('cover'),async (req,res)=>{
     catch
     {
         try{
-            if(fileName!=null)
-            fs.unlink(path.join(uploadPath,fileName),err=> {
-                if(err)
-                console.log(err)})
             let params = {}
             let authorList = await Author.find({})
             params.authorList=authorList
