@@ -1,7 +1,8 @@
-//const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config()
 const express = require('express')
 const app = express()
 const s3 = require('./s3')
+const methodOverride = require('method-override')
 
 const router = require('./routes/index')
 const bookRouter = require('./routes/books')
@@ -16,17 +17,19 @@ app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
 app.set('layout','layouts/layout')
 app.use(express.static('public'))
+app.use(methodOverride('_method'))
 app.use(expressLayouts)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/',router)
-app.use('/author',authorRouter)
-app.use('/book',bookRouter)
+
 app.get('/image/:id',async (req,res)=>{
     let key = req.params.id 
     let readStream = s3.getFileStream(key)
     readStream.pipe(res)
 })
+app.use('/author',authorRouter)
+app.use('/book',bookRouter)
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log('server is up and running!')

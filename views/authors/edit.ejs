@@ -1,0 +1,7 @@
+<%- include('../partials/error.ejs') %>
+<h2>Edit Author</h2>
+<form action="/author/<%= author.id %>?_method=PUT" method="POST">
+    <%- include('../partials/name_input.ejs') %>
+    <a href="/author">cancel</a>
+    <button type="submit">Update</button>
+</form>
