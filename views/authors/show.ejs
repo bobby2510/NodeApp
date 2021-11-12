@@ -4,5 +4,7 @@
 <br>
 <h2>Author's Books</h2>
 <% locals.booksByAuthor.forEach((book) => { %>
-    <img src="/<%= book.coverImagePath %>" width="90" height="150">
+    <a href="/book/<%= book.id %>">
+        <img src="/<%= book.coverImagePath %>" width="90" height="150">
+    </a>
 <% })%>

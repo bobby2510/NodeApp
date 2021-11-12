@@ -1,2 +1,6 @@
-This is the official web page of believer 01 youtube channel
-site is still under Development by coder_bobby
+<h2>Recently Added Books</h2>
+<% locals.books.forEach((book) => { %>
+    <a href="/book/<%= book.id %>">
+        <img src="/<%= book.coverImagePath %>" width="90" height="150">
+    </a>
+<% })%>

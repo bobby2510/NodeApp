@@ -63,6 +63,7 @@ let getStringDate = (date)=>{
 
 
 router.post('/',upload.single('cover'),async (req,res)=>{       
+    let bookObj
     try
     {
         const fileName = req.file!=null? req.file.filename : null
@@ -73,7 +74,7 @@ router.post('/',upload.single('cover'),async (req,res)=>{
                 if(err)
                 console.log(err)})
         }   
-        const bookObj = {
+            bookObj = {
             title:req.body.title,
             author:req.body.author,
             pageCount:req.body.pageCount,
@@ -83,7 +84,7 @@ router.post('/',upload.single('cover'),async (req,res)=>{
         }
         let obj = await Book.create(bookObj)
         console.log('book added successfully!')
-        res.redirect('/book')
+        res.redirect(`/book/${obj.id}`)
     }
     catch
     {
@@ -102,6 +103,92 @@ router.post('/',upload.single('cover'),async (req,res)=>{
     }
    
 })
+
+
+//showing book page 
+router.get('/:id',async (req,res)=>{
+    try{
+        let book = await Book.findById(req.params.id).populate('author').exec()
+        res.render('books/show',{book:book})
+    }
+    catch{
+        res.redirect('/')
+    }
+})
+
+//editing page 
+router.get('/:id/edit',async (req,res)=>{
+    try{
+        let mybook = await Book.findById(req.params.id)
+        let book = {}
+        book.id = mybook.id
+        book.title = mybook.title
+        book.description=mybook.description
+        book.pageCount = mybook.pageCount 
+        book.publishedDate = getStringDate(mybook.publishedDate)
+        book.author = mybook.author 
+        let authors = await Author.find({})
+        res.render('books/edit',{book,authorList:authors})
+    }
+    catch{
+        res.redirect('/')
+    }
+})
+
+//updating the book data 
+router.put('/:id',upload.single('cover'),async (req,res)=>{
+    let book 
+    try{
+        let file_name = req.file!=null ? req.file.filename : null 
+        if(file_name!=null)
+        {
+            await s3.upload(req.file)
+            fs.unlink(path.join(uploadPath,file_name),err=>{
+                if(err)
+                console.log(err)
+            })
+        }
+        book = await Book.findById(req.params.id)
+        book.title = req.body.title 
+        book.author = req.body.author 
+        book.publishedDate = new Date(req.body.publishedDate)
+        book.pageCount = req.body.pageCount
+        book.description = req.body.description
+        if(file_name!=null)
+            book.coverImageName = file_name 
+        await book.save()
+        res.redirect(`/book/${req.params.id}`)
+    }
+    catch{
+        try{
+            let authors = await Author.find({})
+            let mybook = {}
+            mybook.id = book.id
+            mybook.title = book.title
+            mybook.description=book.description
+            mybook.pageCount = book.pageCount 
+            mybook.publishedDate = getStringDate(book.publishedDate)
+            mybook.author = book.author 
+            res.render('books/edit',{book:mybook,authorList:authors,errorMessage:"Error while Upating the date!"})
+        }
+        catch{
+            res.redirect('/')
+        }
+    }
+})
+
+//deleting a particular book 
+router.delete('/:id',async (req,res)=>{
+    try{
+        let book = await Book.findById(req.params.id)
+        await book.remove()
+        res.redirect('/book')
+    }   
+    catch{
+        res.redirect('/')
+    }
+})
+
 
 
 module.exports = router 
