@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Author = require('../models/authors')
 const Book = require('../models/books')
-
+const paginator = require('../pagination')
 
 // home page for showing the authors data 
 router.get('/',async (req,res)=>{
@@ -41,9 +41,11 @@ router.post('/',async (req,res)=>{
 router.get('/:id',async (req,res)=>{
    try
    {
+       let page = req.query.page!=null? Number(req.query.page) : 1 
        let author = await Author.findById(req.params.id)
        let booksByAuthor = await Book.find({author:req.params.id}).limit(6).exec()
-       res.render('authors/show.ejs',{author,booksByAuthor})
+        let pageObj = paginator(booksByAuthor,page)
+       res.render('authors/show.ejs',{author,pageObj})
    }
    catch 
    {

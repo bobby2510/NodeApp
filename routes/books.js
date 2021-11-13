@@ -3,6 +3,7 @@ const Book = require('../models/books')
 const Author = require('../models/authors')
 let s3 = require('../s3')
 const router = express.Router()
+const paginator = require('../pagination')
 
 //multer part 
 const fs = require('fs')
@@ -16,6 +17,7 @@ router.get('/',async (req,res)=>{
     try
     {
         searchParamters = {}
+        let page = req.query.page!=null? Number(req.query.page) : 1 
         if(req.query.title)
             searchParamters.title = new RegExp(req.query.title,'i')
         if(req.query.leftRangeDate && req.query.rightRangeDate)
@@ -26,11 +28,16 @@ router.get('/',async (req,res)=>{
             searchParamters.publishedDate = {$lte:req.query.rightRangeDate}
         //filtering here
         const books = await Book.find(searchParamters)
-        res.render('books/index',{books:books,searchItems:req.query,uploadPath:uploadPath})
+        const pageObj = paginator(books,page)
+        res.render('books/index',{pageObj,searchItems:req.query})
     }
     catch
     {
-        res.render('books/index',{books:[],searchItems:req.query})
+        let pageObj = {
+            books:[],
+            pagination:false 
+        }
+        res.render('books/index',{pageObj,searchItems:req.query})
     }
 })
 
