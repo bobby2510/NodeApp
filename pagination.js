@@ -6,6 +6,7 @@ let paginator = function(books,page)
     const booksPerPage = 2
     let size = books.length 
     let parts = Math.ceil(size/booksPerPage)
+    
     if(page>parts)
         page = 1 
     let start = (page-1)*booksPerPage
@@ -56,13 +57,14 @@ let paginator = function(books,page)
             page_arr = [page-1,page,page+1]
         }
     }
+    let flag = (size >0)? true : false 
     let pageObj = {
         books:req_books,
         active:active,
         prev:prev,
         next:next,
         page_arr : page_arr,
-        pagination:true
+        pagination:flag
     }
     return pageObj
 }
