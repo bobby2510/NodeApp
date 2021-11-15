@@ -1,0 +1,29 @@
+:root{
+    --color-btn-border:black;
+    --btn-border-radius: 0.5rem;
+    --btn-text-font-size: 1rem;
+    --btn-primary-background-color: hsl(var(--color-base-hue),100%,86%);
+    --btn-danger-background-color: hsl(20,100%,86%);
+
+}
+
+.btn
+{
+    padding: 0.5rem 1rem;
+    border:1px solid var(--color-btn-border);
+    border-radius: var(--btn-border-radius);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: var(--btn-text-font-size);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary
+{
+    background-color: var(--btn-primary-background-color);
+}
+.btn-danger
+{
+    background-color: var(--btn-danger-background-color);
+}

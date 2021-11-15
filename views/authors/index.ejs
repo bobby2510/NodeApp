@@ -1,16 +1,16 @@
 
 <form>
-    <h2>Search Author</h2>
+    <h2 class="side-header" >Search Author</h2>
     <input type="text" name="search" value="<%= search %>">
-    <button type="submit">Search</button>
+    <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <br>
 <br>
 <% locals.author_list.forEach((author)=>{ %>
     <div style=" width:250px; display: flex; justify-content:space-around;align-items:center">
         <p><%= author.name %></p>
-        <a href="author/<%= author.id %>">View</a>
-        <a href="/author/<%= author.id %>/edit">Edit</a>
+        <a class="btn btn-primary" href="author/<%= author.id %>">View</a>
+        <a class="btn btn-primary" href="/author/<%= author.id %>/edit">Edit</a>
         <%- include('../partials/delete_form.ejs', {url: `/author/${author.id}?_method=DELETE`}) %>
     </div>
 <% }) %>

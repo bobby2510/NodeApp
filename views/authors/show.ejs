@@ -1,4 +1,4 @@
-<h3><%= author.name %></h3>
+<h3 class="side-header" ><%= author.name %></h3>
 <a href="/author/<%= author.id %>/edit">Edit</a>
 <%- include('../partials/delete_form.ejs',{url:`/author/${author.id}?_method=DELETE`}) %>
 <br>
@@ -11,20 +11,11 @@
 
 <!-- Pagination stuff is going on here -->
 <% if( locals.pageObj.pagination == true ) {%>
-    <nav aria-label="..." class="m-4">
-        <ul class="pagination">
-        <li class="page-item <%= pageObj.prev != -1? "" : "disabled" %>">
+  <div>
             <a class="page-link" href="<%= pageObj.prev != -1 ? `/author/${author.id}?page=${pageObj.prev}` : "#" %>" tabindex="-1">Previous</a>
-          </li>
         <% locals.pageObj.page_arr.forEach((page)=>{ %>
-            <li class="page-item <%= pageObj.active == page ? "active" : "" %>">
                 <a class="page-link" href="/author/<%= author.id %>?page=<%= page %>"><%= page %></a>
-            </li>
         <%})%>
-          <li class="page-item <%= pageObj.next != -1? "" : "disabled" %>">
             <a class="page-link" href="<%= pageObj.next != -1 ? `/author/${author.id}?page=${pageObj.next}` : "#" %>" >Next</a>
-          </li>
-        </ul>
-      </nav>
-    
+          </div>
     <%}%>

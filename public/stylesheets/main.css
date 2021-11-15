@@ -1,0 +1,31 @@
+@import 'shared/variables.css';
+@import 'shared/header.css';
+@import 'shared/buttons.css';
+
+*,*::before, *::after{
+    box-sizing: border-box;
+}
+
+:root{
+    font-family: 'Ubuntu', sans-serif;
+    --side-header-font-size:1.5rem;
+    font-size:20px;
+    background-image: linear-gradient(to right,var(--color-background-dark),var(--color-background-light));
+}
+
+.container
+{
+    max-width: 900px;
+    margin:auto;
+    margin-bottom: 3rem;
+}
+.inner-container
+{
+    margin:3rem;
+}
+
+.side-header
+{
+    color: var(--color-nav-header-text-light);
+    font-size: var(--side-header-font-size);
+}

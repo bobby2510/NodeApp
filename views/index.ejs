@@ -1,4 +1,4 @@
-<h2>Recently Added Books</h2>
+<h2 class="side-header"  >Recently Added Books</h2>
 <% locals.pageObj.books.forEach((book) => { %>
     <a href="/book/<%= book.id %>">
         <img src="/<%= book.coverImagePath %>" width="90" height="150">
@@ -7,20 +7,11 @@
 
 <!-- Pagination stuff is going on here -->
 <% if( locals.pageObj.pagination == true ) {%>
-    <nav aria-label="..." class="m-4">
-        <ul class="pagination">
-        <li class="page-item <%= pageObj.prev != -1? "" : "disabled" %>">
+    <div style="margin-top: 20px;">
             <a class="page-link" href="<%= pageObj.prev != -1 ? `/?page=${pageObj.prev}` : "#" %>" tabindex="-1">Previous</a>
-          </li>
         <% locals.pageObj.page_arr.forEach((page)=>{ %>
-            <li class="page-item <%= pageObj.active == page ? "active" : "" %>">
                 <a class="page-link" href="/?page=<%= page %>"><%= page %></a>
-            </li>
         <%})%>
-          <li class="page-item <%= pageObj.next != -1? "" : "disabled" %>">
             <a class="page-link" href="<%= pageObj.next != -1 ? `/?page=${pageObj.next}` : "#" %>" >Next</a>
-          </li>
-        </ul>
-      </nav>
-    
+        </div>
     <%}%>
