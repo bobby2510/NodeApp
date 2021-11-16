@@ -1,11 +1,25 @@
 <h3 class="side-header">Search Book</h3>
 <form action="/book" method="GET">
-    <input type="text" name="title" value="<%= searchItems.title %>">
-    <input type="date" name="leftRangeDate" value="<%= searchItems.leftRangeDate %>">
-    <input type="date" name="rightRangeDate" value="<%= searchItems.rightRangeDate %>">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <div class="form-row">
+      <div class="form-item">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= searchItems.title %>">
+      </div>
+    </div>
+    <div class="form-row">
+         <div class="form-item">
+            <label >Left Range Date</label>
+            <input type="date" name="leftRangeDate" value="<%= searchItems.leftRangeDate %>">
+         </div>
+        <div class="form-item">
+            <label>Right Range Date</label>
+            <input type="date" name="rightRangeDate" value="<%= searchItems.rightRangeDate %>">
+        </div>
+    </div>
+    <div class="btn-row">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
 </form>
-<br>
 <h4 class="side-header"  >Result books</h4>
 <% locals.pageObj.books.forEach( (book)=>{ %>
     <a href="/book/<%= book.id %>">

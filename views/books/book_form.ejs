@@ -1,20 +1,40 @@
-<div>
+<div class="form-row">
+  <div class="form-item">
+    <label>Title</label>
     <input type="text" name="title" value="<%= book.title%>">
-<select name="author">
-    <% locals.authorList.forEach((author)=>{ %>
-        <% if (author.id == book.author){%>
-            <option value="<%= author.id %>" selected><%= author.name %></option>
-        <% }else {%>
-            <option value="<%= author.id %>" ><%= author.name %></option>
-        <%}%>
-    <% }) %>
-</select>
+  </div>
+  <div class="form-item">
+    <label>Author</label>
+    <select name="author">
+        <% locals.authorList.forEach((author)=>{ %>
+            <% if (author.id == book.author){%>
+                <option value="<%= author.id %>" selected><%= author.name %></option>
+            <% }else {%>
+                <option value="<%= author.id %>" ><%= author.name %></option>
+            <%}%>
+        <% }) %>
+    </select>
+  </div>
 </div>
-<div>
-    <input type="date" name="publishedDate" value="<%= book.publishedDate %>">
-    <input type="number" min=1 name="pageCount" value="<%= book.pageCount %>">
+<div class="form-row">
+    <div class="form-item">
+        <label>publishedDate</label>
+        <input type="date" name="publishedDate" value="<%= book.publishedDate %>">
+    </div>
+    <div class="form-item">
+        <label>page count</label>
+        <input type="number" min=1 name="pageCount" value="<%= book.pageCount %>">
+    </div>
 </div>
-<div>
-    <input type="file" name="cover" >
-    <textarea cols="20" rows="5" name="description"><%= book.description %></textarea>
+<div class="form-row">
+    <div class="form-item">
+        <label>
+            cover image
+        </label>
+        <input type="file"  name="cover" >
+    </div>
+    <div class="form-item">
+    <label>Description</label>
+    <textarea cols="20" class=" form-textarea" rows="5" name="description"><%= book.description %></textarea>
+    </div>
 </div>

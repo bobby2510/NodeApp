@@ -1,15 +1,18 @@
 @import 'shared/variables.css';
 @import 'shared/header.css';
 @import 'shared/buttons.css';
+@import 'shared/form.css';
 
 *,*::before, *::after{
     box-sizing: border-box;
 }
 
+
 :root{
     font-family: 'Ubuntu', sans-serif;
     --side-header-font-size:1.5rem;
     font-size:20px;
+    color: hsl(var(--color-base-hue),100%,86%);
     background-image: linear-gradient(to right,var(--color-background-dark),var(--color-background-light));
 }
 
@@ -28,4 +31,22 @@
 {
     color: var(--color-nav-header-text-light);
     font-size: var(--side-header-font-size);
+}
+
+.author-list
+{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.btn-row
+{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.btn-left
+{
+    justify-content: flex-start;
 }

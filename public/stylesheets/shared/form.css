@@ -1,0 +1,41 @@
+
+.form-row
+{
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+.form-item
+{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+.form-item:first-child
+{
+    margin-left:0;
+}
+
+.form-item input, .form-item select ,.form-item textarea
+{
+    height: 2rem;
+    border-radius: 0.25rem;
+    background-color:hsl(var(--color-base-hue),100%,86%);
+    font-size: 1rem;
+    color: var(--color-background-light);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-background-dark);
+}
+.form-item label 
+{
+    margin-bottom: 0.25rem;
+}
+.form-item textarea
+{
+    resize: none;
+    height: 5rem;
+}
+

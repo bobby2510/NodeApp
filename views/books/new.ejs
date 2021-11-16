@@ -2,6 +2,8 @@
 <%- include('../partials/error.ejs')%>
 <form action='/book' method="POST" enctype="multipart/form-data">
     <%-  include('./book_form.ejs') %>
+  <div class="btn-row">
     <a class="btn btn-danger" href="/book">Cancel</a>
     <button class="btn btn-primary" type="submit">Create</button>
+  </div>
 </form>

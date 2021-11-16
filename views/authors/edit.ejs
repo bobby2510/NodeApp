@@ -2,6 +2,8 @@
 <h2 class="side-header" >Edit Author</h2>
 <form action="/author/<%= author.id %>?_method=PUT" method="POST">
     <%- include('../partials/name_input.ejs') %>
-    <a href="/author">cancel</a>
+ <div class="btn-row">
+    <a  class="btn btn-danger" href="/author">cancel</a>
     <button class="btn btn-primary" type="submit">Update</button>
+ </div>
 </form>

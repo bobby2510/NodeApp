@@ -17,6 +17,7 @@
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    margin: 0.25rem 0.5rem;
 }
 
 .btn-primary
@@ -27,3 +28,4 @@
 {
     background-color: var(--btn-danger-background-color);
 }
+
